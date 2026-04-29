@@ -29,7 +29,12 @@
 </head>
 <body>
   <div id="root"></div>
-  <script type="text/babel">
+  <script type="text/babel" data-presets="env,react">
+    if (!window.React || !window.ReactDOM) {
+      throw new Error("React/ReactDOM failed to load before app initialization.");
+    }
+    const React = window.React;
+    const ReactDOM = window.ReactDOM;
     const { useState } = React;
     const { ChevronRight, MapPin, Clock, CheckCircle, BookOpen, Zap, Users, Lightbulb } = lucide;
 
