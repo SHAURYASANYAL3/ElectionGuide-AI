@@ -4,8 +4,8 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>ElectionGuide India</title>
-  <script crossorigin src="https://cdnjs.cloudflare.com/ajax/libs/react/18.2.0/react.min.js"></script>
-  <script crossorigin src="https://cdnjs.cloudflare.com/ajax/libs/react-dom/18.2.0/react-dom.min.js"></script>
+  <script crossorigin src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
+  <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/7.23.5/babel.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/lucide/0.263.1/umd/lucide.min.js"></script>
   <style>
@@ -29,7 +29,12 @@
 </head>
 <body>
   <div id="root"></div>
-  <script type="text/babel">
+  <script type="text/babel" data-presets="env,react">
+    if (!window.React || !window.ReactDOM) {
+      throw new Error("React/ReactDOM failed to load before app initialization.");
+    }
+    const React = window.React;
+    const ReactDOM = window.ReactDOM;
     const { useState } = React;
     const { ChevronRight, MapPin, Clock, CheckCircle, BookOpen, Zap, Users, Lightbulb } = lucide;
 
@@ -539,7 +544,8 @@
       );
     }
 
-    ReactDOM.render(<ElectionGuideIndia />, document.getElementById('root'));
+    const root = ReactDOM.createRoot(document.getElementById('root'));
+    root.render(<ElectionGuideIndia />);
   </script>
 </body>
 </html>
