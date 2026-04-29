@@ -1,9 +1,13 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>ElectionGuide India</title>
+  <script crossorigin src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
+  <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
+  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/lucide/0.263.1/umd/lucide.min.js"></script>
   <style>
     * { margin: 0; padding: 0; box-sizing: border-box; }
     body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif; background-color: #faf9f5; color: #141413; }
@@ -20,35 +24,66 @@
 </head>
 <body>
   <div id="root"></div>
-  <script>
-    const state = { mode: null, step: 0, simStep: 0 };
-    const root = document.getElementById('root');
-
-    const learningContent = [
-      { title: 'What is an Election?', content: 'An election is a process where citizens vote to choose representatives and leaders. In India, elections happen at national, state, and local levels.', duration: '2-3 minutes' },
-      { title: 'Types of Elections in India', content: 'India conducts General Elections, State Assembly Elections, and Local Body Elections, each with its own timeline and rules.', duration: '3-4 minutes' },
-      { title: 'The Voting Process', content: 'Go to your polling station with valid ID, cast your vote on the EVM privately, and your vote is securely recorded.', duration: '4-5 minutes' },
-      { title: 'Counting and Results', content: 'After voting ends, EVMs are secured and counted under observation. Results are declared after counting.', duration: '3-4 minutes' }
-    ];
-
-    function renderHome() {
-      root.innerHTML = `
-        <div class="container">
-          <div style="text-align:center; margin-bottom:2rem;">
-            <h1 style="font-size:32px; margin-bottom:10px;">🇮🇳 ElectionGuide India</h1>
-            <p class="muted">Understand Indian elections. Learn the process. Make your voice heard.</p>
-          </div>
-          <div class="grid">
-            ${[
-              ['learn','📘 Learning Mode','Step-by-step guide to elections'],
-              ['quick','⚡ Quick Answers','Fast facts and summaries'],
-              ['simulation','🗳️ Simulation','Experience voting firsthand'],
-              ['checklist','✅ Voter Checklist','What you need to vote']
-            ].map(([id,name,desc]) => `<button class="card" data-mode="${id}" style="text-align:left; cursor:pointer;"><h3 style="margin-bottom:8px;">${name}</h3><p class="muted">${desc}</p></button>`).join('')}
-          </div>
-        </div>`;
-      root.querySelectorAll('[data-mode]').forEach(btn => btn.onclick = () => { state.mode = btn.dataset.mode; state.step = 0; state.simStep = 0; render(); });
+  <script type="text/babel" data-presets="env,react">
+    if (!window.React || !window.ReactDOM) {
+      throw new Error("React/ReactDOM failed to load before app initialization.");
     }
+    const React = window.React;
+    const ReactDOM = window.ReactDOM;
+    const { useState } = React;
+    const { ChevronRight, MapPin, Clock, CheckCircle, BookOpen, Zap, Users, Lightbulb } = lucide;
+
+    function ElectionGuideIndia() {
+      const [currentMode, setCurrentMode] = useState(null);
+      const [currentStep, setCurrentStep] = useState(0);
+      const [simulationState, setSimulationState] = useState(null);
+
+      // Anthropic brand colors
+      const colors = {
+        dark: '#141413',
+        light: '#faf9f5',
+        orange: '#d97757',
+        blue: '#6a9bcc',
+        green: '#788c5d',
+        midGray: '#b0aea5',
+        lightGray: '#e8e6dc',
+      };
+
+      const modes = [
+        { id: 'learn', name: 'Learning Mode', icon: BookOpen, desc: 'Step-by-step guide to elections' },
+        { id: 'quick', name: 'Quick Answers', icon: Zap, desc: 'Fast facts and summaries' },
+        { id: 'simulation', name: 'Simulation', icon: Users, desc: 'Experience voting firsthand' },
+        { id: 'checklist', name: 'Voter Checklist', icon: CheckCircle, desc: 'What you need to vote' },
+      ];
+
+      const learningContent = [
+        {
+          title: 'What is an Election?',
+          content: 'An election is a process where citizens vote to choose their representatives and leaders. In India, elections happen at national, state, and local levels. This democratic process ensures that the government represents the will of the people.',
+          duration: '2-3 minutes'
+        },
+        {
+          title: 'Types of Elections in India',
+          content: 'India conducts three main types of elections: General Elections (for Parliament/Lok Sabha every 5 years), State Assembly Elections (for state governments), and Local Body Elections (for Municipal Corporations and Village Councils). Each has its own timeline and rules.',
+          duration: '3-4 minutes'
+        },
+        {
+          title: 'The Voting Process',
+          content: 'You go to your assigned polling station with your voter ID or government-issued identification. You mark your choice on the Electronic Voting Machine (EVM) in the privacy of a voting booth, and your vote is recorded securely. Each vote is counted exactly once.',
+          duration: '4-5 minutes'
+        },
+        {
+          title: 'Counting and Results',
+          content: 'After voting ends, the Election Commission secures the Electronic Voting Machines. Votes are counted by trained officials under observation. Results are declared within 24-48 hours, and the candidate with the most votes in each constituency wins.',
+          duration: '3-4 minutes'
+        },
+      ];
+
+      const timeline = [
+        { phase: 'Pre-Election Phase', items: ['Voter Registration Opens', 'Nomination Filing Period', 'Campaign Period Begins', 'Election Date Announced'], duration: '3-4 weeks' },
+        { phase: 'Election Day', items: ['Polling Stations Open at 7 AM', 'Voting Throughout the Day', 'Polling Stations Close at 6 PM', 'Machines Sealed and Secured'], duration: '1 day (up to 6 phases)' },
+        { phase: 'Post-Election', items: ['Vote Counting Begins', 'Results Declared', 'Government Formation', 'Oath Ceremony'], duration: '2-7 days' },
+      ];
 
     function renderLearn() {
       const c = learningContent[state.step];
@@ -106,8 +141,8 @@
       }
     }
 
-    function render() { state.mode ? renderMode() : renderHome(); }
-    render();
+    const root = ReactDOM.createRoot(document.getElementById('root'));
+    root.render(<ElectionGuideIndia />);
   </script>
 </body>
 </html>
