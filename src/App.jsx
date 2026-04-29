@@ -1,44 +1,8 @@
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>ElectionGuide India</title>
-  <script crossorigin src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
-  <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
-  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/lucide/0.263.1/umd/lucide.min.js"></script>
-  <style>
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
-    body {
-      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
-      background-color: #faf9f5;
-      color: #141413;
-    }
-    button {
-      font-family: inherit;
-    }
-    input, select, textarea {
-      font-family: inherit;
-    }
-  </style>
-</head>
-<body>
-  <div id="root"></div>
-  <script type="text/babel" data-presets="env,react">
-    if (!window.React || !window.ReactDOM) {
-      throw new Error("React/ReactDOM failed to load before app initialization.");
-    }
-    const React = window.React;
-    const ReactDOM = window.ReactDOM;
-    const { useState } = React;
-    const { ChevronRight, MapPin, Clock, CheckCircle, BookOpen, Zap, Users, Lightbulb } = lucide;
+import { useState } from 'react';
+import { ChevronRight, MapPin, Clock, CheckCircle, BookOpen, Zap, Users, Lightbulb } from 'lucide-react';
 
-    function ElectionGuideIndia() {
+export default function App() {
+
       const [currentMode, setCurrentMode] = useState(null);
       const [currentStep, setCurrentStep] = useState(0);
       const [simulationState, setSimulationState] = useState(null);
@@ -543,9 +507,3 @@
         </div>
       );
     }
-
-    const root = ReactDOM.createRoot(document.getElementById('root'));
-    root.render(<ElectionGuideIndia />);
-  </script>
-</body>
-</html>
