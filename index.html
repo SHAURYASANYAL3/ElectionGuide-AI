@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ElectionGuide AI — Understand Elections, Step by Step</title>
+  <meta name="description" content="An interactive AI-powered guide to understanding election processes, timelines, and participation steps worldwide." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="index.css" />
+</head>
+<body>
+
+  <!-- Top Navigation -->
+  <nav id="topNav" class="top-nav">
+    <div class="nav-brand">
+      <span class="nav-icon">🗳️</span>
+      <span>ElectionGuide <span class="nav-ai">AI</span></span>
+    </div>
+    <div class="nav-links">
+      <button class="nav-link active" data-section="home" id="nav-home">Home</button>
+      <button class="nav-link" data-section="learn" id="nav-learn">Learn</button>
+      <button class="nav-link" data-section="compare" id="nav-compare">Compare</button>
+      <button class="nav-link" data-section="simulate" id="nav-simulate">Simulate</button>
+      <button class="nav-link" data-section="checklist" id="nav-checklist">Checklist</button>
+    </div>
+    <button class="theme-toggle" id="themeToggle" aria-label="Toggle theme">
+      <span class="theme-icon">☀️</span>
+    </button>
+  </nav>
+
+  <!-- ===== HOME ===== -->
+  <section id="section-home" class="section section--active">
+    <div class="hero">
+      <div class="hero-badge pill">✨ Your Election Knowledge Hub</div>
+      <h1 class="hero-title display-hero">Understand Elections,<br/>Step by Step</h1>
+      <p class="hero-subtitle">An interactive guide to election processes, timelines, and voter participation — built for everyone.</p>
+
+      <!-- Onboarding -->
+      <div class="onboarding-card card card--featured" id="onboardingCard">
+        <h2 class="onboarding-title">Let's personalize your experience</h2>
+        <div class="onboarding-steps">
+          <div class="onboard-step active" id="onboard-step-1">
+            <label class="onboard-label">🌍 Which country are you interested in?</label>
+            <input type="text" id="inputCountry" class="onboard-input" placeholder="e.g. India, USA, UK, Germany..." autocomplete="off" />
+            <div class="popular-tags">
+              <span class="tag" data-value="India">🇮🇳 India</span>
+              <span class="tag" data-value="United States">🇺🇸 USA</span>
+              <span class="tag" data-value="United Kingdom">🇬🇧 UK</span>
+              <span class="tag" data-value="Germany">🇩🇪 Germany</span>
+              <span class="tag" data-value="Brazil">🇧🇷 Brazil</span>
+              <span class="tag" data-value="Japan">🇯🇵 Japan</span>
+              <span class="tag" data-value="Australia">🇦🇺 Australia</span>
+              <span class="tag" data-value="France">🇫🇷 France</span>
+            </div>
+            <button class="btn btn-primary" id="btnStep1Next">Continue →</button>
+          </div>
+          <div class="onboard-step" id="onboard-step-2">
+            <label class="onboard-label">🗳️ What type of election?</label>
+            <div class="option-grid">
+              <button class="option-card" data-value="General / Parliamentary"><span class="option-icon">🏛️</span><span class="option-text">General / Parliamentary</span></button>
+              <button class="option-card" data-value="Presidential"><span class="option-icon">🎖️</span><span class="option-text">Presidential</span></button>
+              <button class="option-card" data-value="Local / Municipal"><span class="option-icon">🏘️</span><span class="option-text">Local / Municipal</span></button>
+              <button class="option-card" data-value="Referendum"><span class="option-icon">📜</span><span class="option-text">Referendum</span></button>
+            </div>
+            <button class="btn btn-ghost" id="btnStep2Back">← Back</button>
+          </div>
+          <div class="onboard-step" id="onboard-step-3">
+            <label class="onboard-label">🧠 How familiar are you with elections?</label>
+            <div class="option-grid option-grid--3">
+              <button class="option-card" data-value="Beginner"><span class="option-icon">🌱</span><span class="option-text">Beginner</span><span class="option-desc">New to this</span></button>
+              <button class="option-card" data-value="Intermediate"><span class="option-icon">📚</span><span class="option-text">Intermediate</span><span class="option-desc">Know the basics</span></button>
+              <button class="option-card" data-value="Advanced"><span class="option-icon">🎓</span><span class="option-text">Advanced</span><span class="option-desc">Deep knowledge</span></button>
+            </div>
+            <button class="btn btn-ghost" id="btnStep3Back">← Back</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Profile (after onboarding) -->
+      <div class="profile-summary card hidden" id="profileSummary">
+        <div class="profile-header"><h3>Your Profile</h3><button class="btn-icon" id="editProfile">✏️</button></div>
+        <div class="profile-tags">
+          <span class="profile-tag" id="profileCountry"></span>
+          <span class="profile-tag" id="profileType"></span>
+          <span class="profile-tag" id="profileLevel"></span>
+        </div>
+      </div>
+
+      <!-- Feature Cards -->
+      <div class="feature-grid" id="featureGrid">
+        <div class="feature-card card" data-section="learn"><div class="feature-icon">📖</div><h3>Learning Mode</h3><p>Step-by-step guides to election processes</p></div>
+        <div class="feature-card card" data-section="compare"><div class="feature-icon">⚖️</div><h3>Compare Mode</h3><p>Compare systems across countries</p></div>
+        <div class="feature-card card" data-section="simulate"><div class="feature-icon">🎮</div><h3>Simulation Mode</h3><p>Walk through the voting experience</p></div>
+        <div class="feature-card card" data-section="checklist"><div class="feature-icon">✅</div><h3>Checklist Mode</h3><p>Everything you need for voting day</p></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== LEARN ===== -->
+  <section id="section-learn" class="section">
+    <div class="section-container">
+      <div class="section-header">
+        <h2 class="section-title section-heading">Learning Mode</h2>
+        <p class="section-subtitle">Explore the election process step by step</p>
+      </div>
+      <div class="topic-selector" id="topicSelector">
+        <button class="topic-btn active" data-topic="overview">🔍 Overview</button>
+        <button class="topic-btn" data-topic="registration">📝 Registration</button>
+        <button class="topic-btn" data-topic="campaigns">📣 Campaigns</button>
+        <button class="topic-btn" data-topic="voting">🗳️ Voting Day</button>
+        <button class="topic-btn" data-topic="counting">📊 Counting</button>
+        <button class="topic-btn" data-topic="results">🏆 Results</button>
+      </div>
+      <div class="learn-panel card" id="learnPanel"></div>
+      <div class="timeline-container" id="timelineContainer">
+        <h3 class="timeline-title">📅 Election Timeline</h3>
+        <div class="timeline" id="timeline"></div>
+      </div>
+      <div class="key-terms card" id="keyTerms">
+        <h3>📘 Key Terms</h3>
+        <div class="terms-grid" id="termsGrid"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== COMPARE ===== -->
+  <section id="section-compare" class="section section--warm">
+    <div class="section-container">
+      <div class="section-header">
+        <h2 class="section-title section-heading">Compare Systems</h2>
+        <p class="section-subtitle">See how elections differ across countries</p>
+      </div>
+      <div class="compare-selectors">
+        <div class="compare-select-group"><label>Country A</label><select id="compareA" class="compare-select"><option value="India">🇮🇳 India</option><option value="United States">🇺🇸 United States</option><option value="United Kingdom">🇬🇧 United Kingdom</option><option value="Germany">🇩🇪 Germany</option><option value="France">🇫🇷 France</option><option value="Brazil">🇧🇷 Brazil</option><option value="Japan">🇯🇵 Japan</option><option value="Australia">🇦🇺 Australia</option></select></div>
+        <div class="compare-vs">VS</div>
+        <div class="compare-select-group"><label>Country B</label><select id="compareB" class="compare-select"><option value="United States">🇺🇸 United States</option><option value="India">🇮🇳 India</option><option value="United Kingdom">🇬🇧 United Kingdom</option><option value="Germany">🇩🇪 Germany</option><option value="France">🇫🇷 France</option><option value="Brazil">🇧🇷 Brazil</option><option value="Japan">🇯🇵 Japan</option><option value="Australia">🇦🇺 Australia</option></select></div>
+      </div>
+      <div class="compare-table-wrapper card" id="compareTableWrapper"><table class="compare-table" id="compareTable"></table></div>
+    </div>
+  </section>
+
+  <!-- ===== SIMULATE ===== -->
+  <section id="section-simulate" class="section">
+    <div class="section-container">
+      <div class="section-header">
+        <h2 class="section-title section-heading">Simulation Mode</h2>
+        <p class="section-subtitle">Experience the voting process interactively</p>
+      </div>
+      <div class="sim-container card card--featured" id="simContainer">
+        <div class="sim-progress"><div class="sim-progress-bar" id="simProgressBar" style="width:0%"></div></div>
+        <div class="sim-step-indicator" id="simStepIndicator">Step 1 of 6</div>
+        <div class="sim-content" id="simContent"></div>
+        <div class="sim-actions" id="simActions"></div>
+      </div>
+      <div class="sim-journal card hidden" id="simJournal"><h3>📓 Your Journey</h3><div class="journal-entries" id="journalEntries"></div></div>
+    </div>
+  </section>
+
+  <!-- ===== CHECKLIST ===== -->
+  <section id="section-checklist" class="section section--warm">
+    <div class="section-container">
+      <div class="section-header">
+        <h2 class="section-title section-heading">Voter Checklist</h2>
+        <p class="section-subtitle">Everything you need before, during, and after voting</p>
+      </div>
+      <div class="checklist-progress card"><div class="checklist-progress-info"><span id="checklistCount">0 / 0</span> completed</div><div class="checklist-progress-bar-bg"><div class="checklist-progress-bar" id="checklistProgressBar" style="width:0%"></div></div></div>
+      <div class="checklist-sections" id="checklistSections"></div>
+    </div>
+  </section>
+
+  <!-- FAB -->
+  <button class="fab" id="fabHelp" aria-label="Quick help"><span>💡</span></button>
+
+  <!-- Help Modal -->
+  <div class="modal-overlay hidden" id="helpModal">
+    <div class="modal card card--featured">
+      <button class="modal-close" id="helpModalClose">✕</button>
+      <h2>💡 Quick Help</h2>
+      <div class="help-content">
+        <div class="help-item"><strong>📖 Learning Mode</strong><p>Step-by-step explanations of each election phase.</p></div>
+        <div class="help-item"><strong>⚖️ Compare Mode</strong><p>Select two countries and compare their systems side-by-side.</p></div>
+        <div class="help-item"><strong>🎮 Simulation Mode</strong><p>Walk through the voting process — make choices and see outcomes.</p></div>
+        <div class="help-item"><strong>✅ Checklist Mode</strong><p>A practical checklist for before, on, and after election day.</p></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <p>ElectionGuide AI — Informational purposes only. Strictly neutral. No political advice.</p>
+    <p class="footer-sub">Data may vary by region. Always verify with your local election authority.</p>
+  </footer>
+
+  <script src="app.js"></script>
+</body>
+</html>
